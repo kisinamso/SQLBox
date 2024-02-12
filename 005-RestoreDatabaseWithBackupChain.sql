@@ -1,14 +1,48 @@
+/*
+-----------------------------------------------@kisinamso-----------------------------------------------
+|In my idea this is very amazing backup chain and database restore generator script. 			|
+|Backup chain never break this is very important.							|
+|You can use for new AG replica or HA solutions.							|
+|I explained to below work to do. 									|
+|You just set the variables according the comments then enjoy the result.   				|
+-----------------------------------------------@kisinamso-----------------------------------------------
+*/
 SET NOCOUNT ON;
+--Drop temp table if exists.
 IF OBJECT_ID('tempdb..#Backups','U') IS NOT NULL DROP TABLE #Backups;
 IF OBJECT_ID('tempdb..#BackupFiles','U') IS NOT NULL DROP TABLE #BackupFiles;
-DECLARE  @DatabaseName					VARCHAR(100) = 'ENTER DB NAME'
+
+/*
+	SET THE VARIABLES BELOW!
+*/
+
+--Set the database name for backup.
+DECLARE  @DatabaseName			VARCHAR(100) = 'ENTER DB NAME'
+	
+--If there is a place in the source directory that needs to be changed, please specify it. If not, you can leave it blank, but not null!
 DECLARE  @ChangeSourceForDBRestorePath	VARCHAR(MAX) = 'ENTER SOURCE FULL BACKUP PATH'
+	
+--If there is a place in the target directory that needs to be changed, please specify it. If not, you can leave it blank, but not null!
 DECLARE  @ChangeTargetForDBRestorePath	VARCHAR(MAX) = 'ENTER TARGET FULL BACKUP PATH'
+
+--If there is a place in the source directory that needs to be changed, please specify it. If not, you can leave it blank, but not null!
 DECLARE  @ChangeSourceForLogRestorePath	VARCHAR(MAX) = 'ENTER SOURCE LOG BACKUP PATH'
+
+--If there is a place in the target directory that needs to be changed, please specify it. If not, you can leave it blank, but not null!
 DECLARE  @ChangeTargetForLogRestorePath	VARCHAR(MAX) = 'ENTER TARGET LOG BACKUP PATH'
-DECLARE  @RecoveryType					VARCHAR(50)  = 'NORECOVERY'
-DECLARE  @Stats							INT			 = 5
-DECLARE  @BackupCount					INT			
+
+--Restore recovery mode. 
+DECLARE  @RecoveryType			VARCHAR(50)  = 'NORECOVERY'
+
+--Restore completion status sequence number.
+DECLARE  @Stats				INT	     = 5
+
+--Calculating backup count.
+DECLARE  @BackupCount			INT	
+
+/*
+	HAVE FUN WHILE WAITING FOR THE QUERY RESULTS :)
+*/
 CREATE TABLE #Backups (
     BakID                  INTEGER IDENTITY(1, 1) NOT NULL PRIMARY KEY,
     database_name          SYSNAME,
@@ -313,7 +347,7 @@ SELECT	 type
 		--,physical_device_name
 		--,physical_path_name
 		,CASE type
-      WHEN 'D' THEN 'RESTORE DATABASE ' + QUOTENAME(database_name) + ' FROM DISK = ''' + REPLACE(physical_device_name,@ChangeSourceForDBRestorePath, @ChangeTargetForDBRestorePath)  + ''' WITH  ' + @RecoveryType + ', STATS = ' + CAST(@Stats AS VARCHAR(10)) + ', NOUNLOAD, FILE = 1' + ';PRINT(' + CAST(ROW_NUMBER() over (ORDER  BY backup_finish_date ) AS VARCHAR(100)) + '/ ' + CAST(@BackupCount  AS VARCHAR(100))+ ')'
+      WHEN 'D' THEN 'RESTORE DATABASE ' + QUOTENAME(database_name) + ' FROM DISK = ''' + REPLACE(physical_device_name,@ChangeSourceForDBRestorePath, @ChangeTargetForDBRestorePath)  + ''' WITH  ' + @RecoveryType + ', STATS = ' + CAST(@Stats AS VARCHAR(10)) + ', NOUNLOAD, FILE = 1' + ';PRINT(' + CAST(ROW_NUMBER() OVER (ORDER  BY backup_finish_date ) AS VARCHAR(100)) + '/ ' + CAST(@BackupCount  AS VARCHAR(100))+ ')'
       WHEN 'L' THEN 'RESTORE LOG '		+ QUOTENAME(database_name) + ' FROM DISK = ''' + REPLACE(physical_device_name,@ChangeSourceForLogRestorePath,@ChangeTargetForLogRestorePath) + ''' WITH  ' + @RecoveryType + ', NOUNLOAD, FILE = 1'  + CAST(@Stats AS VARCHAR(10)) + ', NOUNLOAD, FILE = 1' + ';PRINT(' + CAST(ROW_NUMBER() over (ORDER  BY backup_finish_date ) AS VARCHAR(100)) + '/ ' + CAST(@BackupCount AS VARCHAR(100))+ ')'
       END AS SCRIPT
 FROM	#Backups
