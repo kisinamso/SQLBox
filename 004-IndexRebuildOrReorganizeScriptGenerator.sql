@@ -1,3 +1,9 @@
+/*
+-----------------------------------------------@kisinamso-----------------------------------------------
+|If you want to generate index reorganize or rebuild scripts in a database you can use this script.	|
+|I explaid parts to work do to below.									|
+-----------------------------------------------@kisinamso-----------------------------------------------
+*/
 --Please Enter DatabaseName to below.
 USE [DatabaseName]
 GO
