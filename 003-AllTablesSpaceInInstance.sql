@@ -1,3 +1,9 @@
+/*
+-----------------------------------------------@kisinamso-----------------------------------------------
+|If you want to learn all tables size in a Instance you can take this script.				|
+|You can acces to comments below.   									|
+-----------------------------------------------@kisinamso-----------------------------------------------
+*/
 --Drop temp table if exists
 DROP TABLE IF EXISTS #List
 
@@ -21,7 +27,7 @@ GO
 INSERT INTO #List
 EXEC sp_msforeachdb'Use [?]
 SELECT 
-	db_name() AS DBName,
+    DB_NAME() AS DataBaseName,
     s.Name AS SchemaName,
     t.NAME AS TableName,
     p.rows ,
