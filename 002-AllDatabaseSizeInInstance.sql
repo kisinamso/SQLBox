@@ -1,3 +1,8 @@
+/*
+-----------------------------------------------@kisinamso-----------------------------------------------
+|Database sizes for a instance. You can see MB or GB also you can modified different measure size.     |
+-----------------------------------------------@kisinamso-----------------------------------------------
+*/
 SELECT
 	 SERVERPROPERTY('MachineName') AS ServerName
 	,d.NAME AS DatabaseName
