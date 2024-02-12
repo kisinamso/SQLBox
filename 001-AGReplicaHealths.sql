@@ -1,3 +1,9 @@
+/*
+-----------------------------------------------@kisinamso-----------------------------------------------
+|This script very common and simple. It use for Always-On Avalibility Group(AG) replicas about health. |
+|                                                                                                      |
+-----------------------------------------------@kisinamso-----------------------------------------------
+*/
 SELECT 
   ar.replica_server_name, 
   adc.database_name, 
