@@ -1,3 +1,8 @@
+/*
+-----------------------------------------------@kisinamso-----------------------------------------------
+|This script works for searching key in a SQL Server Instance.                                         |
+-----------------------------------------------@kisinamso-----------------------------------------------
+*/
 DROP TABLE IF EXISTS #temp	
 CREATE TABLE #temp (
  DBNAME VARCHAR(1000)
