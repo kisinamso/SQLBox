@@ -4,10 +4,10 @@ DROP TABLE IF EXISTS #List
 --Create a new temp table for return
 CREATE TABLE #List 
 (
-	 [DBName]				VARCHAR(1000)
+	 [DBName]			VARCHAR(1000)
 	,[SchemaName]			VARCHAR(1000)
 	,[TableName]			VARCHAR(1000)
-	,[RowCount]				BIGINT
+	,[RowCount]			BIGINT
 	,[TotalSpaceKB]			BIGINT
 	,[TotalSpaceMB]			BIGINT
 	,[UsedSpaceKB]			BIGINT
