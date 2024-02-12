@@ -1,21 +1,14 @@
------------------------------------------------------------------------------------------------------------------------------
---Script to grant a user read-only access to all the databases at on go in a SQL Server instance except the system databases and 
--- the Log shipped databases(secondary :read-only)
---- Created by : Gaurav Deep Singh Juneja
------------------------------------------------------------------------------------------------------------------------------
-
-
+/*
+-----------------------------------------------@kisinamso-----------------------------------------------
+| Create a login and giving database role to it.                                                        |
+-----------------------------------------------@kisinamso-----------------------------------------------
+*/
 
 --STEP 1 : Create the Login(Windows or SQL) which needs the db_datareader access.
 
---For ex: -
-
------------------------------------------------------------------
 --create login [doamin\username] from windows;
-CREATE LOGIN [dba2534] WITH PASSWORD = 0x1 HASHED;
-ALTER LOGIN [dba2534] WITH CHECK_POLICY = ON, CHECK_EXPIRATION = ON;
-
-
+CREATE LOGIN [X] WITH PASSWORD = 0x1 HASHED;
+ALTER  LOGIN  [X] WITH CHECK_POLICY = ON, CHECK_EXPIRATION = ON;
 
 --Step 2:  Replace the user with the one that requires access in Set @user in parameters below
 
@@ -27,10 +20,7 @@ GO
 DECLARE @DatabaseName NVARCHAR(100)   
 DECLARE @SQL NVARCHAR(max)
 DECLARE @User VARCHAR(64)
-SET @User = '[dba2534]' --Replace Your User here
-
-PRINT 'The following user has been selected to have read-only access on all user databases except system databases and log shipped databases:  ' +@user
-
+SET @User = '[X]' --Replace Your User here
 
 DECLARE Grant_Permission CURSOR LOCAL FOR
 SELECT name FROM sys.databases
@@ -57,5 +47,3 @@ END
 
 CLOSE Grant_Permission  
 DEALLOCATE Grant_Permission
-
-----------------------------Script end-------------------------------------------
