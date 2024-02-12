@@ -1,2 +1,4 @@
 # SQLBox
-My useful sql scripts.
+My useful T-SQL scripts.
+You can use for free. 
+:)
