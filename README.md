@@ -7,3 +7,5 @@
 - [Role Assign To All Database For A User](SQL006-RoleAssignToAllDatabaseForAUser.sql)
 - [Search In Instances Objects](SQL007-SearchInInstancesObjects.sql)
 - [Search In SQL Agent Job Content](SQL008-SearchInSQLAgentJobContent.sql)
+- [Backup Dates](SQL009-BackupDates.sql)
+- [SQL Server Version Informations](SQL010-SQLServerVersionSPInformations.sql)
