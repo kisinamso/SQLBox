@@ -4,10 +4,10 @@
 -----------------------------------------------@kisinamso-----------------------------------------------
 */
 SELECT 
-	   DB_NAME() AS DatabaseName,
-	   OBJECT_SCHEMA_NAME(sp.object_id) AS SchemaName,
-	   OBJECT_NAME(sp.object_id) AS ObjectName,
-	   sp.stats_id AS StatisticsId, 
+       DB_NAME() AS DatabaseName,
+       OBJECT_SCHEMA_NAME(sp.object_id) AS SchemaName,
+       OBJECT_NAME(sp.object_id) AS ObjectName,
+       sp.stats_id AS StatisticsId, 
        name AS StatisticName, 
        filter_definition AS FilterDefinition, 
        last_updated AS LastUpdatedDate, 
