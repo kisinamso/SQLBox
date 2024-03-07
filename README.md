@@ -12,3 +12,4 @@
 - [All Indexes In A Database](SQL011-AllIndexesInADatabase.sql)
 - [All Indexes In A Instance](SQL012-AllIndexesInAInstance.sql)
 - [Corrupted Statistics In A Database](SQL013-CorruptedStatisticsInDatabase.sql)
+- [Corrupted Statistics In An Instance](SQL014-CorruptedStatisticsInAInstance.sql)
