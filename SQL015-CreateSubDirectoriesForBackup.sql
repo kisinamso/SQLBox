@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------@kisinamso-----------------------------------------------
 |This server trigger create directory for backups                                                      |
-|If you added new databases this trigger will create new sub directories.			       |
+|If you add new databases, this trigger will create new subdirectories automatically.		       |
 -----------------------------------------------@kisinamso-----------------------------------------------
 */
 USE [master]
