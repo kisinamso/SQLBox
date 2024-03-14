@@ -14,3 +14,4 @@
 - [Corrupted Statistics In A Database](SQL013-CorruptedStatisticsInDatabase.sql)
 - [Corrupted Statistics In An Instance](SQL014-CorruptedStatisticsInAnInstance.sql)
 - [Create Sub Directories For Backup With Server Trigger](SQL015-CreateSubDirectoriesForBackup.sql)
+- [Unused Indexes In An SQL Server Instance](SQL016-UnusedIndexesInAnInstance.sql)
