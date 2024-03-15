@@ -1,6 +1,6 @@
 /*
 -----------------------------------------------@kisinamso-----------------------------------------------
-|This script returns the unused indexes in an SQL Server Instance.												             |
+|This script returns the unused indexes in an SQL Server Instance.					|
 -----------------------------------------------@kisinamso-----------------------------------------------
 */
 DROP TABLE IF EXISTS #Temp
@@ -33,8 +33,8 @@ SELECT
 , dm_ius.user_lookups AS UserLookups
 , dm_ius.user_updates AS UserUpdates
 , p.TableRows
-,''ALTER INDEX '' + QUOTENAME(i.name) + ''ON '' + QUOTENAME(s.name) + ''.'' + QUOTENAME(OBJECT_NAME(dm_ius.OBJECT_ID)) + '' DISABLE'' AS DisableScript
-, ''DROP INDEX '' + QUOTENAME(i.name) + '' ON '' + QUOTENAME(s.name) + ''.'' + QUOTENAME(OBJECT_NAME(dm_ius.OBJECT_ID)) AS DropScript
+,''ALTER INDEX '' + QUOTENAME(i.name) + ''ON '' + QUOTENAME(DB_NAME()) + ''.'' + QUOTENAME(s.name) + ''.'' + QUOTENAME(OBJECT_NAME(dm_ius.OBJECT_ID)) + '' DISABLE;'' AS DisableScript
+, ''DROP INDEX '' + QUOTENAME(i.name) + '' ON '' + QUOTENAME(DB_NAME()) + ''.'' + QUOTENAME(s.name) + ''.'' + QUOTENAME(OBJECT_NAME(dm_ius.OBJECT_ID)) + '';'' AS DropScript
 
 FROM sys.dm_db_index_usage_stats dm_ius
 INNER JOIN sys.indexes i ON i.index_id = dm_ius.index_id 
