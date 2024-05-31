@@ -347,8 +347,9 @@ SELECT	 type
 		--,physical_device_name
 		--,physical_path_name
 		,CASE type
-      WHEN 'D' THEN 'RESTORE DATABASE ' + QUOTENAME(database_name) + ' FROM DISK = ''' + REPLACE(physical_device_name,@ChangeSourceForDBRestorePath, @ChangeTargetForDBRestorePath)  + ''' WITH  ' + @RecoveryType + ', STATS = ' + CAST(@Stats AS VARCHAR(10)) + ', NOUNLOAD, FILE = 1' + ';PRINT(' + CAST(ROW_NUMBER() OVER (ORDER  BY backup_finish_date ) AS VARCHAR(100)) + '/ ' + CAST(@BackupCount  AS VARCHAR(100))+ ')'
-      WHEN 'L' THEN 'RESTORE LOG '		+ QUOTENAME(database_name) + ' FROM DISK = ''' + REPLACE(physical_device_name,@ChangeSourceForLogRestorePath,@ChangeTargetForLogRestorePath) + ''' WITH  ' + @RecoveryType + ', NOUNLOAD, FILE = 1'  + CAST(@Stats AS VARCHAR(10)) + ', NOUNLOAD, FILE = 1' + ';PRINT(' + CAST(ROW_NUMBER() over (ORDER  BY backup_finish_date ) AS VARCHAR(100)) + '/ ' + CAST(@BackupCount AS VARCHAR(100))+ ')'
+      		WHEN 'D' THEN 'RESTORE DATABASE ' + QUOTENAME(database_name) + ' FROM DISK = ''' + REPLACE(physical_device_name,@ChangeSourceForDBRestorePath, @ChangeTargetForDBRestorePath)  + ''' WITH  ' + @RecoveryType + ', STATS = ' + CAST(@Stats AS VARCHAR(10)) + ', NOUNLOAD, FILE = 1' + ';PRINT(' + CAST(ROW_NUMBER() OVER (ORDER BY backup_finish_date ) AS VARCHAR(100)) + '/ ' + CAST(@BackupCount AS VARCHAR(100)) + ')'
+	  	WHEN 'I' THEN 'RESTORE DATABASE ' + QUOTENAME(database_name) + ' FROM DISK = ''' + REPLACE(physical_device_name,@ChangeSourceForDBRestorePath, @ChangeTargetForDBRestorePath)  + ''' WTIH  ' + @RecoveryType + ', STATS = ' + CAST(@Stats AS VARCHAR(10)) + ', NOUNLOAD, FILE = 1' + ';PRINT(' + CAST(ROW_NUMBER() OVER (ORDER BY backup_finish_date ) AS VARCHAR(100)) + '/ ' + CAST(@BackupCount AS VARCHAR(100)) + ')'
+     		WHEN 'L' THEN 'RESTORE LOG '      + QUOTENAME(database_name) + ' FROM DISK = ''' + REPLACE(physical_device_name,@ChangeSourceForLogRestorePath,@ChangeTargetForLogRestorePath) + ''' WITH  ' + @RecoveryType + ', STATS = ' + CAST(@Stats AS VARCHAR(10)) + ', NOUNLOAD, FILE = 1' + ';PRINT(' + CAST(ROW_NUMBER() OVER (ORDER BY backup_finish_date ) AS VARCHAR(100)) + '/ ' + CAST(@BackupCount AS VARCHAR(100)) + ')'
       END AS SCRIPT
 FROM	#Backups
 WHERE database_name = @DatabaseName
